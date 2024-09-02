@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
-public class TaskThree implements Callable<String> {
+public class Task3 implements Callable<String> {
     private final List<Match> matchList;
     private final String nation;
 
-    public TaskThree(List<Match> matchList, String nation) {
+    public Task3(List<Match> matchList, String nation) {
         this.matchList = matchList;
         this.nation = nation;
     }

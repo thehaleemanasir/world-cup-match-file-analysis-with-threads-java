@@ -6,13 +6,13 @@ import model.Match;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class TaskTwo implements Runnable {
+public class Task2 implements Runnable {
 
     private final String[] nations;
     private final int[] penaltyWinPercentages;
     private final List<Match> matchList;
 
-    public TaskTwo(String[] nations, List<Match> matchList) {
+    public Task2(String[] nations, List<Match> matchList) {
         this.nations = nations;
         this.penaltyWinPercentages = new int[nations.length];
         this.matchList = matchList;

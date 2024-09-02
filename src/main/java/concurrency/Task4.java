@@ -3,10 +3,10 @@ package concurrency;
 import model.Match;
 import java.util.List;
 
-public class TaskFour implements Runnable {
+public class Task4 implements Runnable {
     private final List<Match> matchList;
 
-    public TaskFour(List<Match> matchList) {
+    public Task4(List<Match> matchList) {
         this.matchList = matchList;
     }
 
