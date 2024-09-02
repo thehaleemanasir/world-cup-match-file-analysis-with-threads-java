@@ -7,10 +7,19 @@ package application;
  */
 
 
+import concurrency.TaskFour;
+import concurrency.TaskOne;
+import concurrency.TaskThree;
+import concurrency.TaskTwo;
 import io.FileIO;
 import model.Match;
 
+import java.text.ParseException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  *
@@ -18,7 +27,7 @@ import java.util.List;
  */
 public class Main {
     
-    String[] nations = {"Algeria", "Angola", "Argentina", "Australia", "Austria", "Belgium", "Bolivia", "Bosnia-and-Herzegovina",
+    static String[] nations = {"Algeria", "Angola", "Argentina", "Australia", "Austria", "Belgium", "Bolivia", "Bosnia-and-Herzegovina",
         "Brazil", "Bulgaria", "Cameroon", "Canada", "Chile", "China", "Colombia", "Costa-Rica", "Croatia",
         "Cuba", "Czechoslovakia", "Czech-Republic", "Denmark", "East-Germany", "Ecuador", "Egypt", "El-Salvador",
         "England", "France", "FR-Yugoslavia", "Germany", "Ghana", "Greece", "Haiti", "Honduras", "Hungary", "Iceland",
@@ -29,9 +38,35 @@ public class Main {
         "Uruguay", "USA", "USSR", "West-Germany", "Yugoslavia", "Zaire"
     };
     
-    public static void main(String[] args) {
-        List<Match> listy = FileIO.readFile("fifawc.txt");
-        listy.forEach(System.out::println)  ;
+    public static void main(String[] args) throws ParseException, ExecutionException, InterruptedException {
+       // List<Match> listy = FileIO.readFile("fifawc.txt");
+       // listy.forEach(System.out::println)  ;
+
+        String filePath = "./fifawc.txt";
+        var matchList = FileIO.readFile(filePath);
+        double matchCount = matchList.size();
+        var message = "Found %s Match".formatted(matchCount);
+        System.out.println(message);
+
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(7);
+
+        Future<String> task1Future = executorService.submit(new TaskOne(matchList, matchList.get(0).getDate(), matchList.get(matchList.size()-1).getDate()));
+        executorService.scheduleWithFixedDelay(new TaskTwo(nations), 3, 2L, java.util.concurrent.TimeUnit.SECONDS);
+        Future<List<Match>> task3Future = executorService.submit(new TaskThree(matchList, "Germany"));
+        Future<List<Match>> task4Future = executorService.submit(new TaskFour(matchList, "Switzerland"));
+
+
+        System.out.println(task1Future.get());
+        System.out.println(task3Future.get());
+        System.out.println(task4Future.get());
+
+        executorService.shutdown();
+
+
+
+
+
+
 
     }
 }

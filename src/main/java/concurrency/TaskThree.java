@@ -1,25 +1,32 @@
 package concurrency;
 
-import java.util.Map;
+import model.Match;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
-public class TaskThree {
+public class TaskThree implements Callable<String> {
+    private final List<Match> matchList;
+    private final String nation;
 
+    public TaskThree(List<Match> matchList, String nation) {
+        this.matchList = matchList;
+        this.nation = nation;
+    }
 
-//    @Override
-//    public void run() {
-//        // Group workers by remote_ratio and calculate average salary for each group
-//        Map<Integer, Double> remoteToAverageSalaryMap = workers.stream()
-//                .collect(Collectors.groupingBy(
-//                        Salary::getRemote_ratio,
-//                        Collectors.averagingInt(Salary::getSalary)
-//                ));
-//
-//
-//        // ToDo Print the relationship between remote work ratio and average salary
-//
-//    }
+    @Override
+    public String call() throws Exception {
 
+        List<Match> filterMatchList = matchList.stream()
+                .filter(match -> match.getHome_team().equalsIgnoreCase(nation) || match.getAway_team().equalsIgnoreCase(nation))
+                .sorted(Comparator.comparing(Match::getDate).reversed())
+                .limit(5)
+                .toList();
+
+        return String.format("Last 5 matches played by %s are: %s", nation, filterMatchList);
+    }
 
 }
 
