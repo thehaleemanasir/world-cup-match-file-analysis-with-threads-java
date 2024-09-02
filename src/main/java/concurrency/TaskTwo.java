@@ -5,7 +5,6 @@ import model.Match;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.IntStream;
 
 public class TaskTwo implements Runnable {
 
@@ -17,21 +16,33 @@ public class TaskTwo implements Runnable {
         this.nations = nations;
         this.penaltyWinPercentages = new int[nations.length];
         this.matchList = matchList;
+        calculatePenaltyWinPercentages();
+    }
+
+    private void calculatePenaltyWinPercentages() {
+        for (int i = 0; i < nations.length; i++) {
+            String nation = nations[i];
+            long totalMatches = matchList.stream()
+                    .filter(match -> match.getHome_team().equals(nation) || match.getAway_team().equals(nation))
+                    .count();
+            long penaltyWins = matchList.stream()
+                    .filter(match -> (match.getHome_team().equals(nation) || match.getAway_team().equals(nation)) && match.getWin_conditions() != null && match.getWin_conditions().toLowerCase().contains("penalties"))
+                    .count();
+
+            if (totalMatches > 0) {
+                penaltyWinPercentages[i] = (int) ((penaltyWins / (double) totalMatches) * 100);
+            } else {
+                penaltyWinPercentages[i] = 0;
+            }
+        }
     }
 
     @Override
     public void run() {
         int randomIndex = ThreadLocalRandom.current().nextInt(0, nations.length);
+        String selectedNation = nations[randomIndex];
+        int penaltyWinPercentage = penaltyWinPercentages[randomIndex];
 
-        var filteredList = IntStream.range(0, nations.length)
-                .filter(index -> penaltyWinPercentages[index] == randomIndex)
-                .mapToObj(i -> String.format("Nation: %s, Penalty Win Percentage: %d%%", nations[i], penaltyWinPercentages[i]))
-                .toList();
-
-        if (filteredList.isEmpty()) {
-            System.out.println("No records found with a penalty win percentage of " + randomIndex + "%");
-        } else {
-            filteredList.forEach(System.out::println);
-        }
+        System.out.printf("%% of games that %s has won on penalties %d%%%n", selectedNation, penaltyWinPercentage);
     }
 }
