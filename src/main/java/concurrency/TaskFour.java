@@ -1,12 +1,9 @@
 package concurrency;
 
 import model.Match;
-
 import java.util.List;
 
-public class TaskFour implements Runnable
-{
-
+public class TaskFour implements Runnable {
     private final List<Match> matchList;
 
     public TaskFour(List<Match> matchList) {
@@ -14,8 +11,7 @@ public class TaskFour implements Runnable
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
         matchList.stream()
                 .max((match1, match2) -> {
                     int homeGoals1 = Integer.parseInt(match1.getHome_score()) + Integer.parseInt(match1.getAway_score());

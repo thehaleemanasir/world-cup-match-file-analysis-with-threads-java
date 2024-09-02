@@ -12,10 +12,8 @@ import concurrency.TaskOne;
 import concurrency.TaskThree;
 import concurrency.TaskTwo;
 import io.FileIO;
-import model.Match;
 
 import java.text.ParseException;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -39,10 +37,8 @@ public class Main {
     };
     
     public static void main(String[] args) throws ParseException, ExecutionException, InterruptedException {
-       // List<Match> listy = FileIO.readFile("fifawc.txt");
-       // listy.forEach(System.out::println)  ;
 
-        String filePath = "./fifawc.txt";
+        String filePath = "./fifawc.csv";
         var matchList = FileIO.readFile(filePath);
         double matchCount = matchList.size();
         var message = "Found %s Match".formatted(matchCount);
@@ -50,9 +46,11 @@ public class Main {
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(7);
 
-        Future<String> task1Future = executorService.submit(new TaskOne(matchList, matchList.get(0).getDate(), matchList.get(matchList.size()-1).getDate()));
+        String startDate = "01/01/1950";
+        String endDate = "01/01/1955";
+        Future<String> task1Future = executorService.submit(new TaskOne(matchList, startDate, endDate));
         executorService.scheduleWithFixedDelay(new TaskTwo(nations, matchList), 3, 2L, java.util.concurrent.TimeUnit.SECONDS);
-        var task3 = new TaskThree(matchList, "Germany");
+        var task3 = new TaskThree(matchList, "Argentina");
         Future<String> task3Future = executorService.submit(task3);
         executorService.submit(new TaskFour(matchList));
 

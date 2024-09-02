@@ -1,0 +1,11 @@
+year	country	city	stage	home_team	away_team	home_score	away_score	outcome	win_conditions	winning_team	losing_team	date
+1930	Uruguay	Montevideo	Group1	Argentina	Chile	3	1	H	NA	Argentina	Chile	22/07/1930
+1930	Uruguay	Montevideo	Semifinals	Argentina	USA	6	1	H	NA	Argentina	USA	26/07/1930
+1934	Italy	Bologna	R16	Argentina	Sweden	2	3	A	NA	Sweden	Argentina	27/05/1934
+1934	Italy	Turin	R16	Austria	France	3	2	H	Austria-won-in-AET	Austria	France	27/05/1934
+1938	France	Reims	R16	Hungary	Dutch-West-Indies	6	0	H	NA	Hungary	Dutch-West-Indies	05/06/1938
+1938	France	Marseille	R16	Italy	Norway	2	1	H	Italy-won-in-AET	Italy	Norway	05/06/1938
+1950	Brazil	Rio-de-Janeiro	Group2	Chile	Spain	0	2	A	NA	Spain	Chile	29/06/1950
+1950	Brazil	Belo-Horizonte	Group2	England	USA	0	1	A	NA	USA	England	29/06/1950
+1954	Switzerland	Lausanne	Group1	France	Yugoslavia	0	1	A	NA	Yugoslavia	France	16/06/1954
+1954	Switzerland	Basel	Group4	Belgium	England	4	4	D	NA	NA	NA	17/06/1954

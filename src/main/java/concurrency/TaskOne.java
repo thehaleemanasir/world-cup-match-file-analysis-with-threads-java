@@ -9,17 +9,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class TaskOne implements Callable<String>{
+public class TaskOne implements Callable<String> {
     private final List<Match> matchList;
     private final Date startDate;
     private final Date endDate;
 
-    public TaskOne(List<Match> matchList, Date startDate, Date endDate) throws ParseException {
+    public TaskOne(List<Match> matchList, String startDate, String endDate) throws ParseException {
         this.matchList = matchList;
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        this.startDate = dateFormat.parse(dateFormat.format(startDate));
-        this.endDate = dateFormat.parse(dateFormat.format(endDate));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        this.startDate = dateFormat.parse(startDate);
+        this.endDate = dateFormat.parse(endDate);
 
     }
 
