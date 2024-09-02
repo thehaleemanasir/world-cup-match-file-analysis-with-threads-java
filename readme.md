@@ -51,9 +51,13 @@ To create a [Date](https://docs.oracle.com/javase/8/docs/api/), the first thing 
 
 In the starter code, you will notice an array that contains the names of each nation that has participated in the World Cup since its inception.  There are 81 elements/nations in this array. Schedule a Runnable to run every 3 seconds with an initial delay of 2 seconds. The Runnable should generate a random number between 0 and 80 and use this number to subscript the array and select a nation from it. You must then print the percentage of games that the selected nation has won on penalties in the World Cup. For example:
 
-![images/figure-](images/figure-005.png)
+```out
+% of games that Republic-of-Ireland has won on penalities 50%
+```
 
-![images/figure-](images/figure-006.png)
+```out
+% of games that England has won on penalities 25%
+```
 
 *You are permitted to move this array to a different location in your solution if you wish.
 

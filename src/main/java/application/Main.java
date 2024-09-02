@@ -51,22 +51,14 @@ public class Main {
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(7);
 
         Future<String> task1Future = executorService.submit(new TaskOne(matchList, matchList.get(0).getDate(), matchList.get(matchList.size()-1).getDate()));
-        executorService.scheduleWithFixedDelay(new TaskTwo(nations), 3, 2L, java.util.concurrent.TimeUnit.SECONDS);
-        Future<List<Match>> task3Future = executorService.submit(new TaskThree(matchList, "Germany"));
-        Future<List<Match>> task4Future = executorService.submit(new TaskFour(matchList, "Switzerland"));
+        executorService.scheduleWithFixedDelay(new TaskTwo(nations, matchList), 3, 2L, java.util.concurrent.TimeUnit.SECONDS);
+        var task3 = new TaskThree(matchList, "Germany");
+        Future<String> task3Future = executorService.submit(task3);
+        executorService.submit(new TaskFour(matchList));
 
 
         System.out.println(task1Future.get());
         System.out.println(task3Future.get());
-        System.out.println(task4Future.get());
-
-        executorService.shutdown();
-
-
-
-
-
-
 
     }
 }
