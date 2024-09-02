@@ -5,13 +5,12 @@ import model.Match;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.stream.Collectors;
 
-public class Task3 implements Callable<String> {
+public class Task3Callable implements Callable<String> {
     private final List<Match> matchList;
     private final String nation;
 
-    public Task3(List<Match> matchList, String nation) {
+    public Task3Callable(List<Match> matchList, String nation) {
         this.matchList = matchList;
         this.nation = nation;
     }

@@ -7,10 +7,10 @@ package application;
  */
 
 
-import concurrency.Task4;
-import concurrency.Task1;
-import concurrency.Task3;
-import concurrency.Task2;
+import concurrency.Task4Runnable;
+import concurrency.Task1Callable;
+import concurrency.Task3Callable;
+import concurrency.Task2Runnable;
 import io.FileIO;
 
 import java.text.ParseException;
@@ -48,11 +48,11 @@ public class Main {
 
         String startDate = "01/01/1950";
         String endDate = "01/01/1955";
-        Future<String> task1Future = executorService.submit(new Task1(matchList, startDate, endDate));
-        executorService.scheduleWithFixedDelay(new Task2(nations, matchList), 3, 2L, java.util.concurrent.TimeUnit.SECONDS);
-        var task3 = new Task3(matchList, "Argentina");
+        Future<String> task1Future = executorService.submit(new Task1Callable(matchList, startDate, endDate));
+        executorService.scheduleWithFixedDelay(new Task2Runnable(nations, matchList), 3, 2L, java.util.concurrent.TimeUnit.SECONDS);
+        var task3 = new Task3Callable(matchList, "Argentina");
         Future<String> task3Future = executorService.submit(task3);
-        executorService.submit(new Task4(matchList));
+        executorService.submit(new Task4Runnable(matchList));
 
 
         System.out.println(task1Future.get());
